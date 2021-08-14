@@ -114,6 +114,10 @@ public class Gallery implements Serializable{
 //        table.setBounds(10, 40, 980, 600);
 //        frame.getContentPane().add(table);
 
+        JLabel lblSearch = new JLabel("Search:");
+        lblSearch.setBounds(373, 15, 78, 18);
+        frame.getContentPane().add(lblSearch);
+
         JTextField filterField = RowFilterUtil.createRowFilter(table);
         JPanel jp = new JPanel();
         jp.setBounds(420, 11, 168, 25);
@@ -137,10 +141,6 @@ public class Gallery implements Serializable{
         });
         btnTitles.setBounds(10, 9, 80, 30);
         frame.getContentPane().add(btnTitles);
-
-
-
-
 
         JButton btnAdd = new JButton("Add");
         btnAdd.addActionListener(new ActionListener()
