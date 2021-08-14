@@ -1,0 +1,20 @@
+plugins {
+    id 'application'
+}
+
+group 'com.vizor.test'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.20'
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+
+}
+
+application {
+    mainClass = 'com.vizor.test.Gallery'
+}
