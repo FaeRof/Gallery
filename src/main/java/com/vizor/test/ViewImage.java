@@ -79,7 +79,7 @@ public class ViewImage extends JFrame implements Serializable {
         txtDescription.setText(annotation);
         txtDescription.setBounds(10, 260, 360, 90);
         frame.getContentPane().add(txtDescription);
-        txtDescription.setColumns(10);
+        txtDescription.setColumns(100);
 
         /* Unsuccessful attempts at conversion */
         // Icon Dp = (Icon) new ImageIcon(getClass().getResource(image));
