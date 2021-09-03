@@ -18,7 +18,7 @@ import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-public class Gallery implements Serializable{
+public class Gallery implements Serializable {
 
     private static final int WIDTH = 1024;
     private static final int HEIGHT = 768;
@@ -49,14 +49,14 @@ public class Gallery implements Serializable{
 
     /**
      * Create the application.
+     *
      * @return
      */
-    public Gallery ()
-    {
-        int savedSize =0 ;
+    public Gallery() {
+        int savedSize = 0;
         ArrayList<Photo> album1 = new ArrayList<>();
 
-        try   {
+        try {
             FileInputStream infile = new FileInputStream(filename);
             ObjectInputStream outfile = new ObjectInputStream(infile);
 
@@ -71,31 +71,25 @@ public class Gallery implements Serializable{
 
             infile.close();
             outfile.close();
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             // System.err.println("File not found");
-            try{
+            try {
                 File f = new File(filename);
 
                 boolean bool = false;
                 bool = f.createNewFile();
-                while(bool==false)
-                {
+                while (bool == false) {
                     f.delete();
                     bool = f.createNewFile();
                 }
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 e.printStackTrace();
             }
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             //	System.err.println("Read failed");
         }
 
-        if(savedSize!=0)
-        {
+        if (savedSize != 0) {
             album = album1;
         }
 
@@ -106,13 +100,9 @@ public class Gallery implements Serializable{
         frame.getContentPane().setLayout(null);
 
 
-//        String[] columns = {"Title","Description"};
-
         TableModel tableModel = createTableModel();
         table = new JTable(tableModel);
 
-//        table.setBounds(10, 40, 980, 600);
-//        frame.getContentPane().add(table);
 
         JLabel lblSearch = new JLabel("Search:");
         lblSearch.setBounds(373, 15, 78, 18);
@@ -131,96 +121,68 @@ public class Gallery implements Serializable{
         frame.setVisible(true);
 
         JButton btnTitles = new JButton("Titles!");
-        btnTitles.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent arg0)
-            {
-                DisplayAll dA = new DisplayAll(album,filename,0,frame);//0 for titles , 1 for images
-                //because a picture is worth 1K words
+        btnTitles.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                DisplayAll dA = new DisplayAll(album, filename, 0, frame);//0 for titles , 1 for images
             }
         });
         btnTitles.setBounds(10, 9, 80, 30);
         frame.getContentPane().add(btnTitles);
 
         JButton btnAdd = new JButton("Add");
-        btnAdd.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
+        btnAdd.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 int found = 0;
                 String path = " ";
 
-                //Allowing max size to be flexible
-				/*
-				if(album.size()==10)
-				{
-					JOptionPane.showMessageDialog(null, "Only 10 photos can be saved at a time !");
-				}
-
-				else
-				{
-				*/	 final JFileChooser  fileDialog = new JFileChooser();
+                final JFileChooser fileDialog = new JFileChooser();
                 int returnVal = fileDialog.showOpenDialog(frame);
 
-                if (returnVal == JFileChooser.APPROVE_OPTION)
-                {
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-                    String filename=fileDialog.getSelectedFile().getName();
+                    String filename = fileDialog.getSelectedFile().getName();
                     java.io.File file = fileDialog.getSelectedFile();
 
-                    path=fileDialog.getSelectedFile().getAbsolutePath();
-                    // String extension = file.getFileExtension(path);
+                    path = fileDialog.getSelectedFile().getAbsolutePath();
 
-                    String validate = filename.substring(filename.lastIndexOf("."),filename.length());
-                    //JOptionPane.showMessageDialog(null,"Path = "+path);
+                    String validate = filename.substring(filename.lastIndexOf("."), filename.length());
 
 
-                    String[] validTypes = {".png",".jpg",".jpeg",".gif",".bmp"
-                            ,".PNG",".JPG",".JPEG",".GIF",".BMP"};//allowed photo types
+                    String[] validTypes = {".png", ".jpg", ".jpeg", ".gif", ".bmp"
+                            , ".PNG", ".JPG", ".JPEG", ".GIF", ".BMP"};//allowed photo types
                     int possible_size = validTypes.length;
 
-                    for(int i = 0; i < possible_size ; i++)
-                    {
-                        if(validate.equals(validTypes[i]))
-                        {
+                    for (int i = 0; i < possible_size; i++) {
+                        if (validate.equals(validTypes[i])) {
                             found = 1;
                             break;
                         }
                     }
-                    if(found==1)
-                    {
-                        JOptionPane.showMessageDialog(null,"Image selected!");
-                        //JOptionPane.showMessageDialog(null,"Path = "+path);
+                    if (found == 1) {
+                        JOptionPane.showMessageDialog(null, "Image selected!");
+                    } else {
+                        found = 0;
+                        JOptionPane.showMessageDialog(null, "Chosen file is not an image!");
                     }
-                    else
-                    {	found = 0;
-                        JOptionPane.showMessageDialog(null,"Chosen file is not an image!");
-                    }
-                }
-                else
-                {
+                } else {
                     found = 0;
-                    JOptionPane.showMessageDialog(null,"No image selected !");
+                    JOptionPane.showMessageDialog(null, "No image selected !");
                 }
 
-                if(found==1)
-                {	String title = "qwertyuiopasdfghjklzxcvbnm";
+                if (found == 1) {
+                    String title = "qwertyuiopasdfghjklzxcvbnm";
 
                     title = JOptionPane.showInputDialog("Enter Title");
-                    while(title.length()>20||title.equals(""))
-                    {
+                    while (title.length() > 20 || title.equals("")) {
                         title = JOptionPane.showInputDialog("Enter Title upto 20 characters");
 
                     }
-                    //JOptionPane.showMessageDialog(null, "{"+title+"}");
 
                     String annotation = "qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm";
-                    //had to use long string as RandomUtilString unable to import
 
                     annotation = JOptionPane.showInputDialog("Enter Annotation ");
 
-                    while(annotation.length()>100||annotation.equals(""))
-                    {
+                    while (annotation.length() > 100 || annotation.equals("")) {
                         annotation = JOptionPane.showInputDialog("Enter Annotation upto 100 characters");
                     }
 
@@ -232,9 +194,7 @@ public class Gallery implements Serializable{
                     newPhoto.setAnnotation(annotation);
 
                     album.add(newPhoto);
-                    ReadData r = new ReadData(album,filename);
-                    //frame.getContentPane().revalidate();
-                    //frame.getContentPane().repaint();
+                    ReadData r = new ReadData(album, filename);
                     frame.dispose();
                     Gallery g = new Gallery();
                 }
@@ -245,24 +205,17 @@ public class Gallery implements Serializable{
         frame.getContentPane().add(btnAdd);
 
         JButton btnDelete = new JButton("Delete");
-        btnDelete.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent arg0)
-            {
+        btnDelete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
                 int remove = table.getSelectedRow();
-                if(remove==-1)
-                {
+                if (remove == -1) {
                     JOptionPane.showMessageDialog(null, "Select an image first");
-                }
-                else
-                {
+                } else {
                     Photo removed = album.remove(remove);
 
-                    ReadData r = new ReadData(album,filename);
+                    ReadData r = new ReadData(album, filename);
 
-                    JOptionPane.showMessageDialog(null,"Image " + removed.getTitle() + " has been removed");
-                    //frame.getContentPane().revalidate();
-                    //frame.getContentPane().repaint();
+                    JOptionPane.showMessageDialog(null, "Image " + removed.getTitle() + " has been removed");
                     frame.dispose();
                     Gallery g2 = new Gallery();
                 }
@@ -273,11 +226,9 @@ public class Gallery implements Serializable{
 
 
         JButton btnGallery = new JButton("Gallery!");
-        btnGallery.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                DisplayAll dA = new DisplayAll(album,filename,1,frame);
+        btnGallery.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DisplayAll dA = new DisplayAll(album, filename, 1, frame);
 
             }
         });
@@ -289,15 +240,14 @@ public class Gallery implements Serializable{
     }
 
     private static TableModel createTableModel() {
-        Vector<String> columns = new Vector<>(Arrays.asList("Title","Annotation"));
+        Vector<String> columns = new Vector<>(Arrays.asList("Title", "Annotation"));
         Vector<Vector<Object>> rows = new Vector<>();
 
         int size = album.size();
-        Object[][] album_object  = new String[size][2];
+        Object[][] album_object = new String[size][2];
 
         int i;
-        for(i = 0; i < size ; i++)
-        {
+        for (i = 0; i < size; i++) {
             Vector<Object> v = new Vector<>();
             v.add(album_object[i][0] = album.get(i).getTitle());
             v.add(album_object[i][1] = album.get(i).getAnnotation());

@@ -1,17 +1,11 @@
 package com.vizor.test;
-import java.awt.Container;
-import java.awt.EventQueue;
+
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -52,10 +46,7 @@ public class ViewImage extends JFrame implements Serializable {
         return bilinearScaleOp.filter(image, new BufferedImage(width, height, image.getType()));
     }
 
-    public ViewImage(ArrayList<Photo> album, int index,String file,int goBackToMain,JFrame ParentFrame) throws IIOException,IndexOutOfBoundsException{
-
-//        int match = 0;
-//        int i;
+    public ViewImage(ArrayList<Photo> album, int index, String file, int goBackToMain, JFrame ParentFrame) throws IIOException, IndexOutOfBoundsException {
 
         String title = album.get(index).getTitle();
         String annotation = album.get(index).getAnnotation();
@@ -100,16 +91,13 @@ public class ViewImage extends JFrame implements Serializable {
 
             //remove error image
             Photo removed = album.remove(index);
-            ReadData r = new ReadData(album,file);
+            ReadData r = new ReadData(album, file);
             frame.dispose();
-            if(goBackToMain==1)
-            {
+            if (goBackToMain == 1) {
                 Gallery g = new Gallery();
-            }
-            else
-            {
+            } else {
                 ParentFrame.dispose();
-                DisplayAll dA2 = new DisplayAll(album,file,0,null);
+                DisplayAll dA2 = new DisplayAll(album, file, 0, null);
             }
 
             file_compromised = 1;
@@ -123,16 +111,13 @@ public class ViewImage extends JFrame implements Serializable {
                 // e1.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Image went missing !");
                 Photo remove = album.remove(index);
-                ReadData r = new ReadData(album,file);
+                ReadData r = new ReadData(album, file);
                 frame.dispose();
-                if(goBackToMain==1)
-                {
+                if (goBackToMain == 1) {
                     Gallery g = new Gallery();
-                }
-                else
-                {
+                } else {
                     ParentFrame.dispose();
-                    DisplayAll dA2 = new DisplayAll(album,file,1,null);
+                    DisplayAll dA2 = new DisplayAll(album, file, 1, null);
                 }
                 file_compromised = 1;
 

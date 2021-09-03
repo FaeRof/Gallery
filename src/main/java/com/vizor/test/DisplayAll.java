@@ -1,11 +1,9 @@
 package com.vizor.test;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -41,9 +39,8 @@ public class DisplayAll extends JPanel implements Serializable {
     /**
      * Create the frame.
      */
-    public DisplayAll(ArrayList<Photo> album, String filename, int OptedFor,JFrame Parentframe) {
-        // OptedFor = 0 stands for the call is made for titles , = 1 is for
-        // images
+    public DisplayAll(ArrayList<Photo> album, String filename, int OptedFor, JFrame Parentframe) {
+
 
         int size = album.size();
         JFrame frame = new JFrame();
@@ -67,10 +64,10 @@ public class DisplayAll extends JPanel implements Serializable {
                 try {
                     bufferedImage = ImageIO.read(imageFile);
                 } catch (IOException e1) {
-                    // e1.printStackTrace();
+
                     JOptionPane.showMessageDialog(null, "The original image(s) has been removed");
                     errorFaced = 1;
-                    //Parentframe.dispose();
+
                     Photo remove = album.remove(i);
                     frame.dispose();
                     Gallery g2 = new Gallery();
@@ -97,7 +94,7 @@ public class DisplayAll extends JPanel implements Serializable {
             pic.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
                     try {
-                        ViewImage vI = new ViewImage(album, id, filename, 0,frame);
+                        ViewImage vI = new ViewImage(album, id, filename, 0, frame);
                     } catch (IndexOutOfBoundsException e) {//Rare condition
                         JOptionPane.showMessageDialog(null, "The original image has been removed");
                         frame.dispose();
@@ -110,7 +107,7 @@ public class DisplayAll extends JPanel implements Serializable {
             frame.getContentPane().add(pic);
             frame.getContentPane().revalidate();
             frame.getContentPane().repaint();
-            // frame.add(new JButton("hey"));
+
 
         }
 
